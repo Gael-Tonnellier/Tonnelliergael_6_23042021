@@ -8,7 +8,7 @@ const userRoutes =require('./routes/user');
 
 const app =express();
 
-mongoose.connect('mongodb+srv://gael:gaellivrable@cluster0.lx0w9.mongodb.net/Livrable?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://gael:gaellivrable@cluster0.lx0w9.mongodb.net/Cluster0?retryWrites=true&w=majority',
 {
     useNewUrlParser: true,
     useUnifiedTopology: true
