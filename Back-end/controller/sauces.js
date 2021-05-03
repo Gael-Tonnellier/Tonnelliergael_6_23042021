@@ -80,23 +80,28 @@ exports.getAllSauces = (req, res, next) => {
 exports.likeSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
     .then((sauce) => {
-      if(req.body.like==1){
-        sauce.usersLiked.push(req.body.userId);
-        sauce.likes+=1;
-      }else if(req.body.like==-1){
-        sauce.usersDisliked.push(req.body.userId);
-        sauce.dislikes+=1;
-      }else{
-        if(sauce.usersLiked.find(user=>user==req.body.userId)){
-          const indexUser= sauce.usersLiked.indexOf(req.body.user);
-          sauce.usersLiked.splice(indexUser,1);
-          sauce.likes-=1;
-        }else{
-          const indexUser= sauce.usersLiked.indexOf(req.body.user);
-          sauce.usersDisliked.splice(indexUser,1);
-          sauce.dislikes-=1;
-        }
+      switch(req.body.like){
+        case 1 : 
+          sauce.usersLiked.push(req.body.userId);
+          sauce.likes+=1;
+          break;
+        case -1 :
+          sauce.usersDisliked.push(req.body.userId);
+          sauce.dislikes+=1;
+          break;
+        case 0: 
+          if(sauce.usersLiked.find(user=>user==req.body.userId)){
+            const indexUser= sauce.usersLiked.indexOf(req.body.user);
+            sauce.usersLiked.splice(indexUser,1);
+            sauce.likes-=1;
+          }else{
+            const indexUser= sauce.usersLiked.indexOf(req.body.user);
+            sauce.usersDisliked.splice(indexUser,1);
+            sauce.dislikes-=1;
+          }
+          break;
       }
+      
       sauce.update({ $set: {
           likes : sauce.likes,
           dislikes : sauce.dislikes,

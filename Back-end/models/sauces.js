@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const sauceSchema = mongoose.Schema({
   userId: { type: String, required: true },
