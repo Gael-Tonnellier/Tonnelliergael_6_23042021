@@ -3,6 +3,7 @@ require('dotenv').config()
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const mongoSanitize = require('express-mongo-sanitize');
 
 const path =require('path');
 const saucesRoutes = require('./routes/sauces');
@@ -28,7 +29,7 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyParser.json());
-
+app.use(mongoSanitize());
 //INDIQUE A EXPRESS DE GERER LES IMAGES DE MANIERES STATIQUE
 app.use('/images', express.static(path.join(__dirname,'images')))
 
